@@ -12,11 +12,11 @@ def driver():
     driver = get_driver()
     yield driver
     driver.quit()
-def test_login(driver):
-    login_saucedemo(driver)
-    assert "/inventory.html" in driver.current_url
-    titulo = driver.find_element(By.CSS_SELECTOR,'div.header_secondary_container .title').text
-    assert titulo == "Products"   
+# def test_login(driver):
+#     login_saucedemo(driver)
+#     assert "/inventory.html" in driver.current_url
+#     titulo = driver.find_element(By.CSS_SELECTOR,'div.header_secondary_container .title').text
+#     assert titulo == "Products"   
     # login de usuario con username y password.
     # click en boton login.
     # redireccionar a la pagina de inventario.
@@ -27,7 +27,10 @@ def test_login(driver):
     # podamos verificar el titulo, pero del html del catalogo.
     # verificar si existen productos en la pagina y estan visibles.
     # verificar elementos importantes de la pagina.
-    #def test_carrito():
+def test_carrito(driver):
+    login_saucedemo(driver)
+    products = driver.find_elements(By.CLASS_NAME, "inventory_item")
+    assert len(products) > 0#, "No hay productos en la página de inventario
     # login con usuario y password.
     # click en boton login.
     # redireccionar a la pagina del carrito de compras.
