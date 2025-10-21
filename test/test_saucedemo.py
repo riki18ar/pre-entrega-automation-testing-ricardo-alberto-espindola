@@ -8,30 +8,22 @@ from utils.helpers import login_saucedemo, get_driver
 
 @pytest.fixture(scope="session")    
 def driver():
-    # configuracion para consultar a selenium web driver.
     driver = get_driver()
     yield driver
     driver.quit()
-# def test_login(driver):
-#     login_saucedemo(driver)
-#     assert "/inventory.html" in driver.current_url
-#     titulo = driver.find_element(By.CSS_SELECTOR,'div.header_secondary_container .title').text
-#     assert titulo == "Products"   
-    # login de usuario con username y password.
-    # click en boton login.
-    # redireccionar a la pagina de inventario.
-    # verificar el titulo de la pagina de inventario.
-    #def test_catalogo():
-    # login con usuario y password.
-    # click en boton login.
-    # podamos verificar el titulo, pero del html del catalogo.
-    # verificar si existen productos en la pagina y estan visibles.
-    # verificar elementos importantes de la pagina.
+def test_login(driver):
+    login_saucedemo(driver)
+    assert "/inventory.html" in driver.current_url
+    titulo = driver.find_element(By.CSS_SELECTOR,'div.header_secondary_container .title').text
+    assert titulo == "Products"   
+def test_catalogo(driver):
+    login_saucedemo(driver)
+    products = driver.find_elements(By.CLASS_NAME, "inventory_list")
+    assert len(products) > 0
 def test_carrito(driver):
     login_saucedemo(driver)
     products = driver.find_elements(By.CLASS_NAME, "inventory_item")
-    assert len(products) > 0#, "No hay productos en la página de inventario
-    # login con usuario y password.
-    # click en boton login.
-    # redireccionar a la pagina del carrito de compras.
-    # comprobar que el carrito aparezcan productos correctamente.
+    assert len(products) > 0 
+    products[0].find_element(By.TAG_NAME, "button").click()
+    cart_count = driver.find_element(By.CLASS_NAME, "shopping_cart_badge").text
+    assert cart_count == "1" 
