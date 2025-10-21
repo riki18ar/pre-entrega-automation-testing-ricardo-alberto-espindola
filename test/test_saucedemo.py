@@ -1,4 +1,5 @@
 import pytest
+from selenium.webdriver.common.by import By
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -13,7 +14,9 @@ def driver():
     driver.quit()
 def test_login(driver):
     login_saucedemo(driver)
-    assert "/inventory.html" in driver.current_url   
+    assert "/inventory.html" in driver.current_url
+    titulo = driver.find_element(By.CSS_SELECTOR,'div.header_secondary_container .title').text
+    assert titulo == "Products"   
     # login de usuario con username y password.
     # click en boton login.
     # redireccionar a la pagina de inventario.
