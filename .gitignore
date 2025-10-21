@@ -1,0 +1,15 @@
+# Archivos y carpetas de Python
+__pycache__/
+*.pyc
+*.log
+
+# Entornos virtuales (venv/env)
+.venv/
+venv/
+env/
+
+# Archivos de caché de pytest 
+.pytest_cache/
+
+# Archivos del sistema operativo (macOS)
+.DS_Store

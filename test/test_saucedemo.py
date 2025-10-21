@@ -1,15 +1,19 @@
 import pytest
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from utils.helpers import login_saucedemo, get_driver
 
-
-
-#@pytest.fixture
-    
-#def driver():
+@pytest.fixture(scope="session")    
+def driver():
     # configuracion para consultar a selenium web driver.
-
-
-    #def test_login():
+    driver = get_driver()
+    yield driver
+    driver.quit()
+def test_login(driver):
+    login_saucedemo(driver)
+    assert "/inventory.html" in driver.current_url   
     # login de usuario con username y password.
     # click en boton login.
     # redireccionar a la pagina de inventario.
