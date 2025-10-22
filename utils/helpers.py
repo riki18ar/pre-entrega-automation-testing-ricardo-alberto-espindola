@@ -15,16 +15,13 @@ PASSWORD = "secret_sauce"
 def get_driver():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = CHROME_BINARY_PATH
-    chrome_options.add_argument("--disable-save-password-bubble")
     prefs = {
+        # Evita que aparezca el popup de guardar contraseñas
         "credentials_enable_service": False,
-        "profile.password_manager_enabled": False,
-        "profile.default_content_setting_values.notifications": 2,
+        # Desactiva la gestión de contraseñas segura del navegador.
         "profile.password_manager_leak_detection": False,
-        "profile.default_content_setting_values.popups": 0
     }
     chrome_options.add_experimental_option("prefs", prefs)  
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.implicitly_wait(5)
